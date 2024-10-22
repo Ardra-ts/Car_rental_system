@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background: grey;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        input[type="decimal"] {
+            background-color: white;
+            width: 480px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 500px;
+        }
+        button:hover {
+            background-color: #45a049; /* Darker green */
+        }
+        .errorlist {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body style="background-image: url(/static/img/about.png); height: 500px;">
+
+    <div class="form-container">
+        <h1>Add New Car</h1>
+        <form method="post" enctype="multipart/form-data">  
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="errorlist">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit">Add Car</button>
+        </form>
+        <a href="{% url 'view' %}">Back to Home</a>
+    </div >
+
+</body>
+</html>        
